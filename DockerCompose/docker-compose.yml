@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    container_name: mysql-dev
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+    ports:
+      - "3306:3306"
+    volumes:
+      - $HOME/Projects/mysql:/var/lib/mysql
+  php:
+    container_name: webserver-dev
+    build:
+      context: ./Docker
+      dockerfile: Dockerfile-php-kevin
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - $HOME/Projects/www:/var/www
+      - $HOME/Projects/confs/apache:/etc/apache2/sites-enabled
+    
