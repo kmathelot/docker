@@ -12,9 +12,7 @@ services:
       - $HOME/Projects/mysql:/var/lib/mysql
   php:
     container_name: webserver-dev
-    build:
-      context: ./Docker
-      dockerfile: Dockerfile-php-kevin
+    image: php:5.6-apache
     depends_on:
       - db
     links:
@@ -25,4 +23,3 @@ services:
     volumes:
       - $HOME/Projects/www:/var/www
       - $HOME/Projects/confs/apache:/etc/apache2/sites-enabled
-    
